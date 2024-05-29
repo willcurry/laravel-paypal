@@ -66,11 +66,9 @@ trait Helpers
      */
     public function setupSubscription(string $customer_name, string $customer_email, string $start_date = '')
     {
-        $start_date = !empty($start_date) ? Carbon::parse($start_date)->toIso8601String() : "Current time";
 
         $body = [
             'plan_id'    => $this->billing_plan['id'],
-            'start_time' => $start_date,
             'quantity'   => 1,
             'subscriber' => [
                 'name'          => [
@@ -79,6 +77,10 @@ trait Helpers
                 'email_address' => $customer_email,
             ],
         ];
+
+        if (!empty($start_date)) {
+            $body['start_time'] = Carbon::parse($start_date)->toIso8601String();
+        }
 
         if ($this->has_setup_fee) {
             $body['plan'] = [
