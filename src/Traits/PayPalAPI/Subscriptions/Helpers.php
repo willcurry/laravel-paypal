@@ -66,7 +66,6 @@ trait Helpers
      */
     public function setupSubscription(string $customer_name, string $customer_email, string $start_date = '')
     {
-
         $body = [
             'plan_id'    => $this->billing_plan['id'],
             'quantity'   => 1,
